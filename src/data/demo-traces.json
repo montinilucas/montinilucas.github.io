@@ -1,0 +1,300 @@
+[
+  {
+    "role": "manager",
+    "question": {
+      "pt": "Quais OSs estão abertas há 30 dias ou mais?",
+      "en": "Which work orders have been open for 30 days or more?"
+    },
+    "agent": {
+      "pt": "Serviços",
+      "en": "Service"
+    },
+    "denied": false,
+    "tool": "service_aged_orders",
+    "args": {
+      "min_age_days": 30
+    },
+    "sql": "SELECT b.name AS branch, o.id AS order_id, t.name AS technician, o.opened_on, CAST(julianday(:today) - julianday(o.opened_on) AS INTEGER) AS age_days, o.revenue FROM service_order o JOIN branch b ON b.id = o.branch_id JOIN technician t ON t.id = o.technician_id WHERE o.closed_on IS NULL AND o.opened_on <= :cutoff AND (:branch IS NULL OR b.name = :branch) ORDER BY o.opened_on, o.id",
+    "labels": {
+      "pt": [
+        "Filial",
+        "OS",
+        "Técnico",
+        "Abertura",
+        "Dias",
+        "Valor"
+      ],
+      "en": [
+        "Branch",
+        "Order",
+        "Technician",
+        "Opened",
+        "Days",
+        "Value"
+      ]
+    },
+    "columns": [
+      "branch",
+      "order_id",
+      "technician",
+      "opened_on",
+      "age_days",
+      "revenue"
+    ],
+    "rows": [
+      [
+        "Oeste",
+        1798,
+        "Técnico 09",
+        "2024-11-07",
+        722,
+        19525.8
+      ],
+      [
+        "Leste",
+        1237,
+        "Técnico 18",
+        "2024-11-10",
+        719,
+        30821.3
+      ],
+      [
+        "Oeste",
+        30,
+        "Técnico 14",
+        "2024-11-14",
+        715,
+        22904.02
+      ],
+      [
+        "Sul",
+        1341,
+        "Técnico 12",
+        "2024-11-20",
+        709,
+        35377.07
+      ],
+      [
+        "Norte",
+        1285,
+        "Técnico 11",
+        "2024-12-13",
+        686,
+        8785.49
+      ]
+    ],
+    "rows_shown": 20,
+    "total_rows": 135,
+    "answer": {
+      "pt": "135 OSs abertas há 30 dias ou mais. A mais antiga é a 1798, da filial Oeste, com 722 dias.",
+      "en": "135 work orders have been open for 30 days or more. The oldest is 1798, at the Oeste branch, open for 722 days."
+    },
+    "footer": {
+      "pt": "Mostrando 20 de 135 linhas. Quer o detalhe completo em CSV?",
+      "en": "Showing 20 of 135 rows. Want the full detail as a CSV?"
+    }
+  },
+  {
+    "role": "manager",
+    "question": {
+      "pt": "Quais os itens mais vendidos na filial Sul no FY2026?",
+      "en": "What were the best-selling items at the Sul branch in FY2026?"
+    },
+    "agent": {
+      "pt": "Peças",
+      "en": "Parts"
+    },
+    "denied": false,
+    "tool": "parts_top_items",
+    "args": {
+      "period": "FY2026",
+      "branch": "Sul"
+    },
+    "sql": "SELECT b.name AS branch, s.sku, p.description, SUM(s.quantity) AS quantity, ROUND(SUM(s.quantity * s.unit_price), 2) AS revenue FROM part_sale s JOIN branch b ON b.id = s.branch_id JOIN part p ON p.sku = s.sku WHERE s.sold_on BETWEEN :start AND :end AND (:branch IS NULL OR b.name = :branch) GROUP BY b.name, s.sku, p.description ORDER BY revenue DESC, s.sku",
+    "labels": {
+      "pt": [
+        "Filial",
+        "SKU",
+        "Descrição",
+        "Qtde",
+        "Faturamento"
+      ],
+      "en": [
+        "Branch",
+        "SKU",
+        "Description",
+        "Qty",
+        "Revenue"
+      ]
+    },
+    "columns": [
+      "branch",
+      "sku",
+      "description",
+      "quantity",
+      "revenue"
+    ],
+    "rows": [
+      [
+        "Sul",
+        "AD0013",
+        "Elétrica item 13",
+        125,
+        290537.53
+      ],
+      [
+        "Sul",
+        "AD0038",
+        "Elétrica item 38",
+        73,
+        244364.53
+      ],
+      [
+        "Sul",
+        "AD0003",
+        "Elétrica item 03",
+        90,
+        228559.17
+      ],
+      [
+        "Sul",
+        "AD0031",
+        "Lubrificantes item 31",
+        68,
+        223450.17
+      ],
+      [
+        "Sul",
+        "AD0014",
+        "Hidráulica item 14",
+        85,
+        221704.37
+      ]
+    ],
+    "rows_shown": 20,
+    "total_rows": 80,
+    "answer": {
+      "pt": "80 itens venderam em FY2026. O líder é AD0013 (Elétrica item 13), com R$ 290.537,53.",
+      "en": "80 items sold in FY2026. The top one is AD0013 (Elétrica item 13), at R$ 290,537.53."
+    },
+    "footer": {
+      "pt": "Mostrando 20 de 80 linhas. Quer o detalhe completo em CSV?",
+      "en": "Showing 20 of 80 rows. Want the full detail as a CSV?"
+    }
+  },
+  {
+    "role": "manager",
+    "question": {
+      "pt": "Qual a margem de cada vendedor no FY2026?",
+      "en": "What is each seller's margin in FY2026?"
+    },
+    "agent": {
+      "pt": "Máquinas",
+      "en": "Machines"
+    },
+    "denied": false,
+    "tool": "machine_margin_by_seller",
+    "args": {
+      "period": "FY2026"
+    },
+    "sql": "SELECT b.name AS branch, v.name AS seller, COUNT(*) AS units, ROUND(SUM(s.revenue), 2) AS revenue, ROUND(100.0 * (SUM(s.revenue) - SUM(s.cost)) / SUM(s.revenue), 1) AS margin_pct FROM machine_sale s JOIN branch b ON b.id = s.branch_id JOIN seller v ON v.id = s.seller_id WHERE s.sold_on BETWEEN :start AND :end AND (:branch IS NULL OR b.name = :branch) GROUP BY b.name, v.name ORDER BY margin_pct DESC, v.name",
+    "labels": {
+      "pt": [
+        "Filial",
+        "Vendedor",
+        "Unidades",
+        "Faturamento",
+        "Margem %"
+      ],
+      "en": [
+        "Branch",
+        "Seller",
+        "Units",
+        "Revenue",
+        "Margin %"
+      ]
+    },
+    "columns": [
+      "branch",
+      "seller",
+      "units",
+      "revenue",
+      "margin_pct"
+    ],
+    "rows": [
+      [
+        "Oeste",
+        "Vendedor 04",
+        10,
+        7883136.23,
+        14.0
+      ],
+      [
+        "Leste",
+        "Vendedor 08",
+        18,
+        19942814.77,
+        12.7
+      ],
+      [
+        "Leste",
+        "Vendedor 03",
+        11,
+        11340667.74,
+        12.6
+      ],
+      [
+        "Oeste",
+        "Vendedor 14",
+        10,
+        7770827.11,
+        12.6
+      ],
+      [
+        "Oeste",
+        "Vendedor 09",
+        5,
+        7976539.88,
+        12.3
+      ]
+    ],
+    "rows_shown": 15,
+    "total_rows": 15,
+    "answer": {
+      "pt": "Vendedor 04 tem a maior margem de FY2026: 14.0% sobre R$ 7.883.136,23.",
+      "en": "Vendedor 04 has the highest margin in FY2026: 14.0% on R$ 7,883,136.23."
+    },
+    "footer": null
+  },
+  {
+    "role": "seller",
+    "question": {
+      "pt": "Quanto temos de títulos vencidos a receber?",
+      "en": "How much do we have in overdue receivables?"
+    },
+    "agent": {
+      "pt": "Financeiro",
+      "en": "Finance"
+    },
+    "denied": true,
+    "tool": null,
+    "answer": {
+      "pt": "Seu perfil não tem acesso ao agente de Financeiro.",
+      "en": "Your role does not have access to the Finance agent."
+    }
+  },
+  {
+    "role": "manager",
+    "question": {
+      "pt": "Vai chover amanhã?",
+      "en": "Will it rain tomorrow?"
+    },
+    "agent": null,
+    "denied": false,
+    "tool": null,
+    "answer": {
+      "pt": "Isso está fora do que os agentes da AgroDemo cobrem.",
+      "en": "That is outside what the AgroDemo agents cover."
+    }
+  }
+]

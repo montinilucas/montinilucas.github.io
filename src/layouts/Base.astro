@@ -1,0 +1,75 @@
+---
+import '@fontsource-variable/archivo/wdth.css';
+import '@fontsource/ibm-plex-mono/400.css';
+import '@fontsource/ibm-plex-mono/500.css';
+import '../styles/global.css';
+import { contact, copy, paths, type Lang } from '../i18n';
+
+interface Props {
+  lang: Lang;
+  alternate: string;
+  title?: string;
+  description?: string;
+}
+
+const { lang, alternate, title, description } = Astro.props;
+const t = copy[lang];
+const home = paths[lang].home;
+const pageTitle = title ? `${title} | Lucas Montini` : t.meta.title;
+const pageDescription = description ?? t.meta.description;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const image = new URL('/og.png', Astro.site);
+const person = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: 'Lucas Montini',
+  jobTitle: 'AI Engineer',
+  url: Astro.site,
+  sameAs: [contact.linkedin, contact.github],
+};
+---
+
+<!doctype html>
+<html lang={lang === 'pt' ? 'pt-BR' : 'en'}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={pageDescription} />
+    <link rel="canonical" href={canonical} />
+    <link rel="alternate" hreflang="pt-BR" href={new URL(lang === 'pt' ? Astro.url.pathname : alternate, Astro.site)} />
+    <link rel="alternate" hreflang="en" href={new URL(lang === 'en' ? Astro.url.pathname : alternate, Astro.site)} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={pageDescription} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={image} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <script type="application/ld+json" set:html={JSON.stringify(person)} />
+  </head>
+  <body>
+    <a class="skip" href="#main">{lang === 'pt' ? 'Ir para o conteúdo' : 'Skip to content'}</a>
+    <header class="topbar">
+      <a class="brand" href={home}>Lucas Montini</a>
+      <nav aria-label={lang === 'pt' ? 'Principal' : 'Main'}>
+        <a href={`${home}#projetos`}>{t.nav.projects}</a>
+        <a href={`${home}#demo`}>{t.nav.demo}</a>
+        <a href={`${home}#metodo`}>{t.nav.method}</a>
+        <a href={`${home}#trajetoria`}>{t.nav.career}</a>
+        <a href={`${home}#contato`}>{t.nav.contact}</a>
+        <a class="lang" href={alternate} hreflang={lang === 'pt' ? 'en' : 'pt-BR'} title={t.switchTitle}>{t.switchLabel}</a>
+      </nav>
+    </header>
+    <main id="main">
+      <slot />
+    </main>
+    <footer class="footer">
+      <p>{t.footer}</p>
+      <p class="footer-links">
+        <a href={contact.github}>GitHub</a>
+        <a href={contact.linkedin}>LinkedIn</a>
+      </p>
+    </footer>
+  </body>
+</html>

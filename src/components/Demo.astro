@@ -1,0 +1,169 @@
+---
+import traces from '../data/demo-traces.json';
+import { copy, type Lang } from '../i18n';
+
+const { lang } = Astro.props as { lang: Lang };
+const t = copy[lang].demo;
+const payload = JSON.stringify({
+  lang,
+  traces,
+  strings: {
+    steps: t.steps,
+    routed: t.routed,
+    noRoute: t.noRoute,
+    allowed: t.allowed,
+    deniedShort: t.deniedShort,
+    queryNote: t.queryNote,
+    rowsOf: t.rowsOf,
+    roles: t.roles,
+  },
+}).replace(/</g, '\\u003c');
+---
+
+<section id="demo" class="demo" data-demo>
+  <div class="demo-inner">
+    <header class="demo-head">
+      <p class="label">{t.label}</p>
+      <h2>{t.title}</h2>
+      <p>{t.lede}</p>
+    </header>
+
+    <div class="demo-body">
+      <div class="demo-questions">
+        <p class="label" id="demo-pick">{t.pick}</p>
+        <div role="group" aria-labelledby="demo-pick">
+          {
+            traces.map((trace, index) => (
+              <button type="button" data-case={index} aria-pressed={index === 0 ? 'true' : 'false'}>
+                {trace.question[lang]}
+              </button>
+            ))
+          }
+        </div>
+        <a class="demo-repo" href="https://github.com/montinilucas/governed-agents">{t.repo} ↗</a>
+      </div>
+      <ol class="trace" data-log aria-live="polite"></ol>
+    </div>
+    <noscript><p>{t.noscript}</p></noscript>
+  </div>
+  <script type="application/json" id="demo-data" set:html={payload} />
+</section>
+
+<script>
+  const root = document.querySelector<HTMLElement>('[data-demo]');
+  const source = document.getElementById('demo-data');
+
+  if (root && source) {
+    const { lang, traces, strings: s } = JSON.parse(source.textContent ?? '{}');
+    const log = root.querySelector<HTMLElement>('[data-log]')!;
+    const buttons = [...root.querySelectorAll<HTMLButtonElement>('[data-case]')];
+    const locale = lang === 'pt' ? 'pt-BR' : 'en-US';
+    const money = new Intl.NumberFormat(locale, { style: 'currency', currency: 'BRL' });
+    const number = new Intl.NumberFormat(locale);
+    const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let currentRun = 0;
+
+    const make = (tag: string, className = '', text = '') => {
+      const node = document.createElement(tag);
+      if (className) node.className = className;
+      if (text) node.textContent = text;
+      return node;
+    };
+
+    const formatCell = (column: string, value: unknown) => {
+      if (value === null || value === undefined) return '';
+      if (['revenue', 'amount', 'stock_value'].includes(column)) return money.format(Number(value));
+      if (column === 'margin_pct') return `${number.format(Number(value))}%`;
+      if (column === 'order_id' || typeof value !== 'number') return String(value);
+      return number.format(value);
+    };
+
+    const step = (label: string, body: Node | string, tone = '') => {
+      const item = make('li', `step ${tone}`.trim());
+      item.append(make('p', 'step-label', label));
+      const content = make('div', 'step-body');
+      content.append(body);
+      item.append(content);
+      return item;
+    };
+
+    const callText = (trace: any) => {
+      const args = Object.entries(trace.args ?? {})
+        .map(([key, value]) => `${key}=${JSON.stringify(value)}`)
+        .join(', ');
+      return `${trace.tool}(${args})`;
+    };
+
+    const resultTable = (trace: any) => {
+      const wrap = make('div');
+      const scroller = make('div', 'table-scroll');
+      scroller.tabIndex = 0;
+      const table = make('table');
+      const head = make('tr');
+      trace.labels[lang].forEach((label: string) => head.append(make('th', '', label)));
+      const thead = make('thead');
+      thead.append(head);
+      const tbody = make('tbody');
+      trace.rows.forEach((row: unknown[]) => {
+        const line = make('tr');
+        row.forEach((value, index) => line.append(make('td', '', formatCell(trace.columns[index], value))));
+        tbody.append(line);
+      });
+      table.append(thead, tbody);
+      scroller.append(table);
+      const note = s.rowsOf
+        .replace('{shown}', number.format(trace.rows_shown))
+        .replace('{total}', number.format(trace.total_rows));
+      wrap.append(scroller, make('p', 'step-note', note));
+      return wrap;
+    };
+
+    const stepsFor = (trace: any) => {
+      const role = s.roles[trace.role];
+      const steps = [step(`${s.steps.question} · ${role}`, trace.question[lang])];
+
+      if (!trace.agent) {
+        steps.push(step(s.steps.route, s.noRoute));
+      } else {
+        steps.push(step(s.steps.route, `${s.routed} ${trace.agent[lang]}`));
+        if (trace.denied) {
+          steps.push(step(s.steps.permission, `${role}: ${s.deniedShort}`, 'is-denied'));
+        } else {
+          steps.push(step(s.steps.permission, `${role}: ${s.allowed}`, 'is-ok'));
+          steps.push(step(s.steps.tool, make('code', '', callText(trace))));
+          const query = make('div');
+          query.append(make('code', 'sql', trace.sql), make('p', 'step-note', s.queryNote));
+          steps.push(step(s.steps.query, query));
+          steps.push(step(s.steps.result, resultTable(trace)));
+        }
+      }
+
+      const answer = make('div', 'answer');
+      answer.append(make('p', '', trace.answer[lang]));
+      if (trace.footer) answer.append(make('p', 'answer-footer', trace.footer[lang]));
+      steps.push(step(s.steps.answer, answer, 'is-answer'));
+      return steps;
+    };
+
+    const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
+    const play = async (index: number, animate: boolean) => {
+      const run = ++currentRun;
+      buttons.forEach((button, position) =>
+        button.setAttribute('aria-pressed', String(position === index)),
+      );
+      log.replaceChildren();
+      for (const item of stepsFor(traces[index])) {
+        if (run !== currentRun) return;
+        log.append(item);
+        if (animate && !calm) {
+          item.classList.add('enter');
+          await wait(380);
+        }
+      }
+    };
+
+    buttons.forEach((button, index) => button.addEventListener('click', () => play(index, true)));
+    play(0, false);
+  }
+</script>

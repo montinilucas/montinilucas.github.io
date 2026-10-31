@@ -1,0 +1,138 @@
+---
+import { getCollection } from 'astro:content';
+import Demo from './Demo.astro';
+import Base from '../layouts/Base.astro';
+import { contact, copy, paths, type Lang } from '../i18n';
+
+const { lang } = Astro.props as { lang: Lang };
+const t = copy[lang];
+const cases = (await getCollection('cases', (entry) => entry.id.startsWith(`${lang}/`))).sort(
+  (a, b) => a.data.order - b.data.order,
+);
+const slugOf = (id: string) => id.split('/')[1];
+---
+
+<Base lang={lang} alternate={paths[lang === 'pt' ? 'en' : 'pt'].home}>
+  <section class="hero">
+    <div class="hero-text">
+      <p class="label">{t.hero.eyebrow}</p>
+      <h1>{t.hero.title}</h1>
+      <p class="hero-lede">{t.hero.lede}</p>
+      <p class="hero-actions">
+        <a class="button" href="#demo">{t.hero.cta}</a>
+        <a class="button is-quiet" href="#projetos">{t.hero.ctaAlt}</a>
+      </p>
+    </div>
+    <figure class="hero-photo">
+      <img src="/images/lucas.jpg" alt="Lucas Montini" width="640" height="640" />
+      <figcaption class="label">{t.hero.place}</figcaption>
+    </figure>
+  </section>
+
+  <dl class="stats">
+    {
+      t.stats.map((stat) => (
+        <div>
+          <dt>{stat.label}</dt>
+          <dd>{stat.value}</dd>
+        </div>
+      ))
+    }
+  </dl>
+
+  <Demo lang={lang} />
+
+  <section class="section" id="projetos">
+    <p class="label">{t.projects.label}</p>
+    <div class="section-main">
+      <h2>{t.projects.title}</h2>
+      <p class="section-lede">{t.projects.lede}</p>
+      <ol class="rows">
+        {
+          cases.map((entry, index) => (
+            <li>
+              <a class="row" href={paths[lang].case(slugOf(entry.id))}>
+                <span class="row-number">{String(index + 1).padStart(2, '0')}</span>
+                <span class="row-title">{entry.data.title}</span>
+                <span class="row-summary">{entry.data.summary}</span>
+                <span class="row-status">{entry.data.status}</span>
+                <span class="row-arrow" aria-hidden="true">→</span>
+              </a>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <section class="section" id="metodo">
+    <p class="label">{t.method.label}</p>
+    <div class="section-main">
+      <h2>{t.method.title}</h2>
+      <ol class="principles">
+        {
+          t.method.items.map((item) => (
+            <li>
+              <h3>{item.title}</h3>
+              <p>{item.text}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <section class="section" id="trajetoria">
+    <p class="label">{t.career.label}</p>
+    <div class="section-main">
+      <h2>{t.career.title}</h2>
+      <ol class="timeline">
+        {
+          t.career.items.map((item) => (
+            <li>
+              <p class="timeline-period">{item.period}</p>
+              <div>
+                <h3>{item.role}</h3>
+                <p class="timeline-org">{item.org}</p>
+                <p>{item.text}</p>
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <section class="section" id="stack">
+    <p class="label">{t.stack.label}</p>
+    <div class="section-main">
+      <h2>{t.stack.title}</h2>
+      <dl class="spec-table">
+        {
+          t.stack.groups.map((group) => (
+            <div>
+              <dt>{group.name}</dt>
+              <dd>{group.items}</dd>
+            </div>
+          ))
+        }
+      </dl>
+      <h3 class="credentials-title">{t.stack.credentials}</h3>
+      <ul class="credentials">
+        {t.stack.credentialItems.map((item) => <li>{item}</li>)}
+      </ul>
+      <p class="languages">{t.stack.languages}</p>
+    </div>
+  </section>
+
+  <section class="contact" id="contato">
+    <p class="label">{t.contactSection.label}</p>
+    <h2>{t.contactSection.title}</h2>
+    <p>{t.contactSection.lede}</p>
+    <a class="contact-mail" href={`mailto:${contact.email}`}>{contact.email}</a>
+    <p class="contact-links">
+      <a href={contact.linkedin}>LinkedIn ↗</a>
+      <a href={contact.github}>GitHub ↗</a>
+    </p>
+  </section>
+</Base>
