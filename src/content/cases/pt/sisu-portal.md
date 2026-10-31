@@ -1,5 +1,5 @@
 ---
-order: 3
+order: 4
 title: Portal de notas de corte do SiSU
 summary: Consulta gratuita ao histórico oficial do MEC, com 697.822 registros de 14 arquivos e rastreio de cada nota até a linha da planilha original.
 status: Em desenvolvimento, ainda não publicado
@@ -13,6 +13,9 @@ stack:
   - Tailwind CSS
   - Pytest
   - GitHub Actions
+image: /images/projects/sisu-portal.webp
+imageAlt: Página de um curso, com vagas, inscritos e nota de corte final
+caption: Tela real, com dados públicos do MEC
 links: []
 ---
 
@@ -36,8 +39,6 @@ O que torna o projeto interessante é a confiança no dado:
 ## Decisões de produto
 
 As notas do estudante ficam só no navegador, sem conta e sem servidor guardando dados pessoais. O portal compara e informa, mas não promete aprovação, porque o histórico não prova que as regras foram iguais entre os anos.
-
-![Página de um curso, com vagas, inscritos, nota de corte final e os pesos oficiais da edição](/images/sisu-curso.webp)
 
 ## Sobre o código
 

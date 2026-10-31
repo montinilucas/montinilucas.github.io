@@ -12,4 +12,5 @@ npm run dev
 - O texto da página inicial fica em `src/i18n.ts`.
 - Cada case é um arquivo Markdown em `src/content/cases/`, um por idioma.
 - `src/data/demo-traces.json` é gerado por `scripts/export_demo.py`, em governed-agents.
+- As telas dos projetos ficam em `mockups/`, com a AgroDemo, uma marca fictícia. `mockups/render.ps1` gera as imagens em `public/images/projects/`.
 - A publicação é automática: todo push na `main` passa pelo workflow de deploy.

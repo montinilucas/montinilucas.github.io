@@ -11,6 +11,9 @@ const cases = defineCollection({
     status: z.string(),
     role: z.string(),
     stack: z.array(z.string()),
+    image: z.string(),
+    imageAlt: z.string(),
+    caption: z.string(),
     links: z.array(z.object({ label: z.string(), href: z.string() })).default([]),
   }),
 });

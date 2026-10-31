@@ -1,5 +1,5 @@
 ---
-order: 3
+order: 4
 title: University admission cutoff portal
 summary: Free access to official historical cutoff scores for Brazil's SiSU, with 697,822 records from 14 files, each traceable to its line in the source spreadsheet.
 status: In development, not yet published
@@ -13,6 +13,9 @@ stack:
   - Tailwind CSS
   - Pytest
   - GitHub Actions
+image: /images/projects/sisu-portal.webp
+imageAlt: A course page, in Portuguese, with seats, applicants and the final cutoff score
+caption: Real screen with public government data, in Portuguese
 links: []
 ---
 
@@ -36,8 +39,6 @@ What makes the project interesting is trust in the data:
 ## Product decisions
 
 A student's scores stay in the browser, with no account and no server holding personal data. The portal compares and informs, but it does not promise admission, because history does not prove the rules were the same across years.
-
-![A course page, in Portuguese, with seats, applicants, the final cutoff score and the edition's official weights](/images/sisu-curso.webp)
 
 ## About the code
 

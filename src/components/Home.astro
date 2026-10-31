@@ -9,14 +9,27 @@ const t = copy[lang];
 const cases = (await getCollection('cases', (entry) => entry.id.startsWith(`${lang}/`))).sort(
   (a, b) => a.data.order - b.data.order,
 );
-const slugOf = (id: string) => id.split('/')[1];
+const slugOf = (id: string) => id.split('/')[1]!;
+
+// Career band: one grid column per month, from January 2018 to December 2026.
+const years = [2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026];
+const band = [
+  { label: 'MPPR', from: 1, to: 13, tone: '' },
+  { label: 'VESTMapaMental', from: 13, to: 75, tone: '' },
+  { label: 'Brid', from: 75, to: 90, tone: '' },
+  { label: 'Ciarama', from: 97, to: 107, tone: 'is-now' },
+];
 ---
 
 <Base lang={lang} alternate={paths[lang === 'pt' ? 'en' : 'pt'].home}>
   <section class="hero">
     <div class="hero-text">
       <p class="label">{t.hero.eyebrow}</p>
-      <h1>{t.hero.title}</h1>
+      <h1>
+        <span>{t.hero.titleStart}</span>
+        <mark>{t.hero.titleMark}</mark>
+      </h1>
+      <p class="hero-check">{t.hero.check}</p>
       <p class="hero-lede">{t.hero.lede}</p>
       <p class="hero-actions">
         <a class="button" href="#demo">{t.hero.cta}</a>
@@ -42,38 +55,85 @@ const slugOf = (id: string) => id.split('/')[1];
 
   <Demo lang={lang} />
 
-  <section class="section" id="projetos">
-    <p class="label">{t.projects.label}</p>
-    <div class="section-main">
-      <h2>{t.projects.title}</h2>
-      <p class="section-lede">{t.projects.lede}</p>
-      <ol class="rows">
-        {
-          cases.map((entry, index) => (
-            <li>
-              <a class="row" href={paths[lang].case(slugOf(entry.id))}>
-                <span class="row-number">{String(index + 1).padStart(2, '0')}</span>
-                <span class="row-title">{entry.data.title}</span>
-                <span class="row-summary">{entry.data.summary}</span>
-                <span class="row-status">{entry.data.status}</span>
-                <span class="row-arrow" aria-hidden="true">→</span>
-              </a>
-            </li>
-          ))
-        }
-      </ol>
-    </div>
+  <section class="rail-section" id="projetos" data-rail>
+    <header class="section-head rail-head">
+      <div>
+        <p class="label">{t.projects.label}</p>
+        <h2>{t.projects.title}</h2>
+        <p class="section-lede">{t.projects.lede}</p>
+      </div>
+      <div class="rail-controls">
+        <button type="button" data-rail-move="-1" aria-label={t.projects.previous}>←</button>
+        <button type="button" data-rail-move="1" aria-label={t.projects.next}>→</button>
+      </div>
+    </header>
+    <ol class="rail" data-rail-track tabindex="0" aria-label={t.projects.title}>
+      {
+        cases.map((entry, index) => (
+          <li class="block">
+            <a href={paths[lang].case(slugOf(entry.id))}>
+              <img src={entry.data.image} alt={entry.data.imageAlt} width="1280" height="800" loading="lazy" />
+              <div class="block-body">
+                <p class="block-meta">
+                  <span>{String(index + 1).padStart(2, '0')}</span>
+                  <span>{entry.data.status}</span>
+                </p>
+                <h3>{entry.data.title}</h3>
+                <p class="block-summary">{entry.data.summary}</p>
+              </div>
+            </a>
+          </li>
+        ))
+      }
+    </ol>
   </section>
 
   <section class="section" id="metodo">
-    <p class="label">{t.method.label}</p>
-    <div class="section-main">
+    <header class="section-head">
+      <p class="label">{t.method.label}</p>
       <h2>{t.method.title}</h2>
-      <ol class="principles">
+    </header>
+    <ol class="principles">
+      {
+        t.method.items.map((item) => (
+          <li>
+            <h3>{item.title}</h3>
+            <p>{item.text}</p>
+          </li>
+        ))
+      }
+    </ol>
+  </section>
+
+  <section class="career" id="trajetoria">
+    <div class="career-inner">
+      <header class="section-head">
+        <p class="label">{t.career.label}</p>
+        <h2>{t.career.title}</h2>
+      </header>
+
+      <div class="band" aria-hidden="true">
+        <div class="band-years">{years.map((year) => <span>{year}</span>)}</div>
+        <div class="band-track">
+          {
+            band.map((item) => (
+              <span class={`band-item ${item.tone}`} style={`grid-column: ${item.from} / ${item.to}`}>
+                {item.label}
+              </span>
+            ))
+          }
+          <span class="band-tick" style="grid-column: 39 / 42"><b>Filadd</b></span>
+          <span class="band-now" style="grid-column: 80 / 107">Ciarama</span>
+        </div>
+      </div>
+
+      <ol class="career-grid">
         {
-          t.method.items.map((item) => (
+          t.career.items.map((item) => (
             <li>
-              <h3>{item.title}</h3>
+              <p class="career-period">{item.period}</p>
+              <h3>{item.role}</h3>
+              <p class="career-org">{item.org}</p>
               <p>{item.text}</p>
             </li>
           ))
@@ -82,57 +142,72 @@ const slugOf = (id: string) => id.split('/')[1];
     </div>
   </section>
 
-  <section class="section" id="trajetoria">
-    <p class="label">{t.career.label}</p>
-    <div class="section-main">
-      <h2>{t.career.title}</h2>
-      <ol class="timeline">
-        {
-          t.career.items.map((item) => (
-            <li>
-              <p class="timeline-period">{item.period}</p>
-              <div>
-                <h3>{item.role}</h3>
-                <p class="timeline-org">{item.org}</p>
-                <p>{item.text}</p>
-              </div>
-            </li>
-          ))
-        }
-      </ol>
-    </div>
-  </section>
-
   <section class="section" id="stack">
-    <p class="label">{t.stack.label}</p>
-    <div class="section-main">
+    <header class="section-head">
+      <p class="label">{t.stack.label}</p>
       <h2>{t.stack.title}</h2>
-      <dl class="spec-table">
-        {
-          t.stack.groups.map((group) => (
-            <div>
-              <dt>{group.name}</dt>
-              <dd>{group.items}</dd>
-            </div>
-          ))
-        }
-      </dl>
-      <h3 class="credentials-title">{t.stack.credentials}</h3>
-      <ul class="credentials">
-        {t.stack.credentialItems.map((item) => <li>{item}</li>)}
-      </ul>
+    </header>
+    <dl class="tool-blocks">
+      {
+        t.stack.groups.map((group) => (
+          <div>
+            <dt>{group.name}</dt>
+            <dd>{group.items}</dd>
+          </div>
+        ))
+      }
+    </dl>
+    <div class="credentials-block">
+      <div>
+        <h3>{t.stack.credentials}</h3>
+        <ul class="credentials">
+          {t.stack.credentialItems.map((item) => <li>{item}</li>)}
+        </ul>
+      </div>
       <p class="languages">{t.stack.languages}</p>
     </div>
   </section>
 
   <section class="contact" id="contato">
-    <p class="label">{t.contactSection.label}</p>
-    <h2>{t.contactSection.title}</h2>
-    <p>{t.contactSection.lede}</p>
-    <a class="contact-mail" href={`mailto:${contact.email}`}>{contact.email}</a>
-    <p class="contact-links">
-      <a href={contact.linkedin}>LinkedIn ↗</a>
-      <a href={contact.github}>GitHub ↗</a>
-    </p>
+    <div class="contact-inner">
+      <p class="label">{t.contactSection.label}</p>
+      <h2>{t.contactSection.title}</h2>
+      <p class="contact-lede">{t.contactSection.lede}</p>
+      <a class="contact-mail" href={`mailto:${contact.email}`}>{contact.email}</a>
+      <p class="contact-links">
+        <a href={contact.linkedin}>LinkedIn ↗</a>
+        <a href={contact.github}>GitHub ↗</a>
+      </p>
+    </div>
   </section>
 </Base>
+
+<script>
+  const rail = document.querySelector<HTMLElement>('[data-rail]');
+  const track = rail?.querySelector<HTMLElement>('[data-rail-track]');
+
+  if (rail && track) {
+    const buttons = [...rail.querySelectorAll<HTMLButtonElement>('[data-rail-move]')];
+    const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    const refresh = () => {
+      const end = track.scrollWidth - track.clientWidth - 2;
+      buttons[0]!.disabled = track.scrollLeft <= 2;
+      buttons[1]!.disabled = track.scrollLeft >= end;
+    };
+
+    buttons.forEach((button) =>
+      button.addEventListener('click', () => {
+        const card = track.querySelector('li');
+        const step = (card?.getBoundingClientRect().width ?? 380) + 16;
+        track.scrollBy({
+          left: Number(button.dataset.railMove) * step,
+          behavior: calm ? 'auto' : 'smooth',
+        });
+      }),
+    );
+    track.addEventListener('scroll', refresh, { passive: true });
+    addEventListener('resize', refresh);
+    refresh();
+  }
+</script>

@@ -1,5 +1,5 @@
 ---
-order: 4
+order: 5
 title: Fare Radar
 summary: A serverless automation that tracks airfares daily and works out when splitting a group's purchase comes out cheaper.
 status: In use, open source
@@ -10,6 +10,9 @@ stack:
   - SerpApi
   - Firebase
   - Firestore
+image: /images/projects/fare-radar.webp
+imageAlt: Dashboard, in Portuguese, with the Curitiba to Recife route, departure dates and the best way to buy
+caption: Real screen with fictional data, in Portuguese
 links:
   - label: Code on GitHub
     href: https://github.com/montinilucas/fare-radar

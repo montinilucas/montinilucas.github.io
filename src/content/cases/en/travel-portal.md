@@ -1,5 +1,5 @@
 ---
-order: 5
+order: 6
 title: Corporate Travel Portal
 summary: Request, approval and quotation in one place, replacing spreadsheets and untracked approvals, as a PWA integrated with the ERP.
 status: In production
@@ -11,6 +11,9 @@ stack:
   - PWA
   - Bootstrap
   - REST API
+image: /images/projects/travel-portal.webp
+imageAlt: Pending approvals list, in Portuguese, with the flow steps and three requests
+caption: Screen recreated with a fictional brand and data, in Portuguese
 links: []
 ---
 

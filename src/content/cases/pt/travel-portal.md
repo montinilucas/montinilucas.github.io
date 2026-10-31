@@ -1,5 +1,5 @@
 ---
-order: 5
+order: 6
 title: Portal de Viagens Corporativas
 summary: Do pedido à aprovação e à cotação num só lugar, substituindo planilhas e aprovações sem rastreio, como PWA integrado ao ERP.
 status: Em produção
@@ -11,6 +11,9 @@ stack:
   - PWA
   - Bootstrap
   - API REST
+image: /images/projects/travel-portal.webp
+imageAlt: Lista de aprovações pendentes, com os passos do fluxo e três solicitações
+caption: Tela recriada com marca e dados fictícios
 links: []
 ---
 

@@ -1,5 +1,5 @@
 ---
-order: 6
+order: 7
 title: IT tickets opened from Teams
 summary: An agent opens tickets on the workflow platform through its API, on behalf of the person asking, working around an author limitation.
 status: In testing
@@ -9,6 +9,9 @@ stack:
   - Power Automate
   - REST API
   - SharePoint
+image: /images/projects/ticket-chat.webp
+imageAlt: Chat, in Portuguese, where the agent opens a ticket for the person asking
+caption: Screen recreated with fictional data, in Portuguese
 links: []
 ---
 

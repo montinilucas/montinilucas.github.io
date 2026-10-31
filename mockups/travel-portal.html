@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"><title>Portal de Viagens</title><link rel="stylesheet" href="mock.css">
+<style>
+  body { display: grid; grid-template-columns: 250px 1fr; background: #f6f4ee; color: #1a1c1f; }
+  aside { padding: 24px 18px; background: #17191c; color: #e9e6df; }
+  .marca { display: flex; align-items: center; gap: 11px; font-size: 20px; font-weight: 700; line-height: 1.05; }
+  .marca img { width: 42px; height: 42px; }
+  .marca small { display: block; color: #a9a7a1; font-size: 15px; font-weight: 400; }
+  nav { margin-top: 30px; display: grid; gap: 5px; font-size: 19px; }
+  nav span { display: flex; justify-content: space-between; padding: 11px 14px; border-radius: 7px; color: #c9c6be; }
+  nav .on { background: #ffc933; color: #15171a; font-weight: 600; }
+  nav b { padding: 0 8px; border-radius: 99px; background: #ff7a1a; color: #15171a; font-size: 15px; line-height: 23px; }
+  main { padding: 44px 44px; }
+  h1 { font-size: 44px; font-weight: 700; letter-spacing: -.4px; }
+  .sub { margin-top: 2px; color: #5c5f63; font-size: 23px; }
+  .passos { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 28px; }
+  .passos div { padding: 18px 16px; border-radius: 7px; background: #e9e5da; color: #55585c; font-size: 21px; font-weight: 600; }
+  .passos .feito { background: #15171a; color: #ffc933; }
+  .passos .agora { background: #ffc933; color: #15171a; }
+  .kpis { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 20px; }
+  .kpis div { padding: 18px 20px; border-radius: 8px; background: #fff; border: 1px solid #e3dfd4; }
+  .kpis small { display: block; color: #5c5f63; font-size: 17px; }
+  .kpis b { font-size: 42px; line-height: 1.15; }
+  .lista { margin-top: 20px; border-radius: 8px; background: #fff; border: 1px solid #e3dfd4; overflow: hidden; font-size: 21px; }
+  .lista th { padding: 12px 16px; background: #f0ece2; color: #55585c; font-size: 16px; font-weight: 600; text-align: left; }
+  .lista td { padding: 19px 16px; border-top: 1px solid #ece8dd; }
+  .ok { padding: 7px 15px; border-radius: 6px; background: #15171a; color: #ffc933; font-size: 16px; font-weight: 600; }
+  .urg { padding: 3px 9px; border-radius: 5px; background: #ffe3cd; color: #a84300; font-size: 15px; font-weight: 600; }
+</style>
+</head>
+<body>
+  <aside>
+    <div class="marca"><img src="agrodemo-logo.svg" alt=""><div>AgroDemo<small>Viagens</small></div></div>
+    <nav><span>Início</span><span>Minhas viagens</span><span class="on">Aprovações <b>3</b></span><span>Cotações</span><span>Relatórios</span><span>Colaboradores</span></nav>
+  </aside>
+  <main>
+    <h1>Aprovações pendentes</h1>
+    <p class="sub">3 solicitações aguardam a sua decisão</p>
+    <div class="passos"><div class="feito">1 · Solicitação</div><div class="agora">2 · Aprovação</div><div>3 · Compras</div><div>4 · Conclusão</div></div>
+    <div class="kpis">
+      <div><small>Em aprovação</small><b>3</b></div>
+      <div><small>Em cotação</small><b>5</b></div>
+      <div><small>Concluídas no mês</small><b>18</b></div>
+    </div>
+    <table class="lista">
+      <thead><tr><th>Colaborador</th><th>Trecho</th><th>Ida</th><th>Área</th><th></th></tr></thead>
+      <tbody>
+        <tr><td>Ana Souza</td><td>Curitiba → Recife</td><td>12/11</td><td>Comercial</td><td><span class="ok">Aprovar</span></td></tr>
+        <tr><td>Bruno Lima</td><td>Goiânia → Campinas</td><td>05/11 <span class="urg">urgente</span></td><td>Serviços</td><td><span class="ok">Aprovar</span></td></tr>
+        <tr><td>Carla Dias</td><td>Cuiabá → São Paulo</td><td>21/11</td><td>Peças</td><td><span class="ok">Aprovar</span></td></tr>
+      </tbody>
+    </table>
+  </main>
+</body>
+</html>

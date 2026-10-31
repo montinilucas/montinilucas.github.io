@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"><title>Lakehouse</title><link rel="stylesheet" href="mock.css">
+<style>
+  body { padding: 48px 48px; background: #0e0f11; color: #f3efe6; }
+  h1 { font-size: 46px; font-weight: 700; letter-spacing: -.5px; }
+  h1 em { font-style: normal; color: #ffc933; }
+  .flow { display: grid; grid-template-columns: repeat(4, 1fr); gap: 34px; margin-top: 34px; }
+  .stage { position: relative; padding: 22px 20px 26px; border-radius: 6px; background: #1b1d20; border-top: 6px solid #55585c; }
+  .stage:not(:last-child)::after { content: '→'; position: absolute; right: -29px; top: 44%; color: #ffc933; font-size: 28px; font-weight: 700; }
+  .stage.b { border-color: #c98a4b; } .stage.s { border-color: #d7dade; } .stage.g { border-color: #ffc933; } .stage.r { border-color: #ff7a1a; }
+  .stage small { display: block; color: #a9a7a1; font-size: 17px; }
+  .stage b { display: block; margin-top: 2px; font-size: 27px; }
+  .stage p { margin-top: 6px; color: #d3cfc6; font-size: 18px; line-height: 1.3; }
+  .bug { margin-top: 30px; padding: 22px 24px; border-radius: 6px; background: #1b1d20; }
+  .bug h2 { font-size: 21px; color: #ff9a4d; font-weight: 600; }
+  .bug table { margin-top: 10px; font-family: Consolas, monospace; font-size: 19px; }
+  .bug th { padding: 5px 16px 5px 0; color: #a9a7a1; font-weight: 400; text-align: left; border-bottom: 1px solid #36393d; }
+  .bug td { padding: 7px 16px 7px 0; border-bottom: 1px solid #2c2f33; }
+  .zumbi td { color: #ffc933; }
+  .tag { padding: 2px 9px; border-radius: 4px; background: #ff7a1a; color: #15171a; font-family: 'Segoe UI', sans-serif; font-size: 16px; font-weight: 700; }
+  .check { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; margin-top: 24px; }
+  .check div { padding: 20px 24px; border-radius: 6px; }
+  .check small { display: block; font-size: 18px; font-weight: 600; }
+  .check b { font-size: 44px; line-height: 1.15; }
+  .ruim { background: #ff7a1a; color: #15171a; } .bom { background: #ffc933; color: #15171a; }
+</style>
+</head>
+<body>
+  <h1>Do ERP ao relatório, <em>com conferência</em></h1>
+  <div class="flow">
+    <div class="stage b"><small>Bronze</small><b>4.320 linhas</b><p>Como a ingestão entrega</p></div>
+    <div class="stage s"><small>Silver</small><b>3.840 linhas</b><p>Versão mais recente de cada registro</p></div>
+    <div class="stage g"><small>Gold</small><b>Esquema estrela</b><p>Ano fiscal de novembro a outubro</p></div>
+    <div class="stage r"><small>Direct Lake</small><b>Relatórios</b><p>Leem o lakehouse direto</p></div>
+  </div>
+  <div class="bug">
+    <h2>A linha zumbi: excluída no ERP, viva nos relatórios</h2>
+    <table>
+      <thead><tr><th>nota</th><th>item</th><th>del_rec</th><th>valor</th><th>situação</th></tr></thead>
+      <tbody>
+        <tr class="zumbi"><td>100</td><td>1</td><td>0</td><td>R$ 500,00</td><td><span class="tag">zumbi</span></td></tr>
+        <tr><td>100</td><td>1</td><td>8123</td><td>R$ 500,00</td><td>excluída</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="check">
+    <div class="ruim"><small>Filtro óbvio: receita inflada em</small><b>R$ 2.949.048,92</b></div>
+    <div class="bom"><small>Gold contra o razão contábil</small><b>R$ 0,00 de diferença</b></div>
+  </div>
+</body>
+</html>

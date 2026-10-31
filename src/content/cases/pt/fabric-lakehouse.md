@@ -12,6 +12,9 @@ stack:
   - Data Factory
   - DAX
   - T-SQL
+image: /images/projects/lakehouse.webp
+imageAlt: Fluxo de Bronze a Direct Lake, com a linha zumbi e a diferença zerada contra o razão contábil
+caption: Ilustração com os números fictícios do repositório aberto
 links:
   - label: Reconstrução aberta no GitHub
     href: https://github.com/montinilucas/medallion-lakehouse

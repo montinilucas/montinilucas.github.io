@@ -24,6 +24,11 @@ const other = lang === 'pt' ? 'en' : 'pt';
       <p class="case-lede">{entry.data.summary}</p>
     </header>
 
+    <figure class="case-visual">
+      <img src={entry.data.image} alt={entry.data.imageAlt} width="1280" height="800" />
+      <figcaption class="label">{entry.data.caption}</figcaption>
+    </figure>
+
     <div class="case-grid">
       <aside>
         <dl class="case-spec">

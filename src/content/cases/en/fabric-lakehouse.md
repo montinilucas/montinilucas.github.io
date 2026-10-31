@@ -12,6 +12,9 @@ stack:
   - Data Factory
   - DAX
   - T-SQL
+image: /images/projects/lakehouse.webp
+imageAlt: Flow from Bronze to Direct Lake, in Portuguese, with the zombie row and a zero difference against the ledger
+caption: Illustration with fictional numbers from the open repository, in Portuguese
 links:
   - label: Open rebuild on GitHub
     href: https://github.com/montinilucas/medallion-lakehouse

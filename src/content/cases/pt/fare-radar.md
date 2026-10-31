@@ -1,5 +1,5 @@
 ---
-order: 4
+order: 5
 title: Radar de Passagens
 summary: Automação sem servidor que monitora tarifas todo dia e descobre quando dividir a compra de um grupo sai mais barato.
 status: Em uso, código aberto
@@ -10,6 +10,9 @@ stack:
   - SerpApi
   - Firebase
   - Firestore
+image: /images/projects/fare-radar.webp
+imageAlt: Painel com a rota Curitiba a Recife, as datas de ida e a melhor forma de comprar
+caption: Tela real, com dados fictícios
 links:
   - label: Código no GitHub
     href: https://github.com/montinilucas/fare-radar

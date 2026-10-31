@@ -12,6 +12,9 @@ stack:
   - Dataverse
   - SharePoint
   - Teams
+image: /images/projects/agent-chat.webp
+imageAlt: Conversa com o agente de Peças, com tabela de itens e oferta do detalhe em CSV
+caption: Tela recriada com dados fictícios
 links:
   - label: Reconstrução aberta no GitHub
     href: https://github.com/montinilucas/governed-agents

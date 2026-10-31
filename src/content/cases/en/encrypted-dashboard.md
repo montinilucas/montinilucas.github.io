@@ -1,5 +1,5 @@
 ---
-order: 7
+order: 8
 title: Orders dashboard with encrypted data
 summary: A dashboard that reads protected spreadsheets in the browser, stores only encrypted data in the cloud and runs inside a Power BI report.
 status: In production
@@ -11,6 +11,9 @@ stack:
   - Firebase
   - Firestore
   - Power BI
+image: /images/projects/orders-dashboard.webp
+imageAlt: Order backlog dashboard, in Portuguese, with metrics, charts and an encrypted-data badge
+caption: Screen recreated with a fictional brand and data, in Portuguese
 links: []
 ---
 

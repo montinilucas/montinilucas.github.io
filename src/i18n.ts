@@ -18,7 +18,9 @@ export const copy = {
     switchTitle: 'Read in English',
     hero: {
       eyebrow: 'AI Engineer · Dados · Integrações',
-      title: 'IA em produção, com números que batem.',
+      titleStart: 'IA em produção,',
+      titleMark: 'com números que batem.',
+      check: 'Diferença contra a fonte: R$ 0,00',
       lede: 'Sou Lucas Montini, coordenador de sistemas numa concessionária de máquinas agrícolas. Construí os agentes de IA que as áreas usam para consultar vendas, serviços, finanças e RH, e a base de dados que os sustenta.',
       cta: 'Testar a demo',
       ctaAlt: 'Ver os projetos',
@@ -33,9 +35,9 @@ export const copy = {
     demo: {
       label: 'Demo',
       title: 'Pergunte a uma concessionária que não existe.',
-      lede: 'Cinco execuções gravadas do repositório governed-agents, com dados fictícios e sem modelo ao vivo. Escolha uma pergunta e veja o caminho até a resposta.',
-      pick: 'Perguntas',
-      replay: 'Repetir',
+      lede: 'Treze execuções gravadas do repositório governed-agents, com dados fictícios e sem modelo ao vivo. Escolha uma pergunta e veja o caminho até a resposta.',
+      groups: { parts: 'Peças', service: 'Serviços', machines: 'Máquinas', finance: 'Financeiro', limits: 'Limites' },
+      asRole: 'como {role}',
       noscript: 'Esta demo precisa de JavaScript. O código está no GitHub.',
       repo: 'Ver o código no GitHub',
       steps: {
@@ -58,8 +60,9 @@ export const copy = {
     projects: {
       label: 'Projetos',
       title: 'O que eu construí',
-      lede: 'Trabalho de empresa aparece sem dados da empresa. Onde dá para mostrar código, o repositório é uma reconstrução do zero, com dados fictícios.',
-      open: 'Abrir case',
+      lede: 'Trabalho de empresa aparece sem dados da empresa: as telas foram recriadas com a AgroDemo, uma marca fictícia. Onde dá para mostrar código, o repositório é uma reconstrução do zero.',
+      previous: 'Projetos anteriores',
+      next: 'Próximos projetos',
     },
     method: {
       label: 'Método',
@@ -171,7 +174,9 @@ export const copy = {
     switchTitle: 'Ler em português',
     hero: {
       eyebrow: 'AI Engineer · Data · Integrations',
-      title: 'AI in production, with numbers that add up.',
+      titleStart: 'AI in production,',
+      titleMark: 'with numbers that add up.',
+      check: 'Difference against the source: R$ 0.00',
       lede: "I'm Lucas Montini, Systems Coordinator at a farm-equipment dealership in Brazil. I built the AI agents the business teams use to look up sales, service, finance and HR figures, along with the data platform underneath them.",
       cta: 'Try the demo',
       ctaAlt: 'See the projects',
@@ -186,9 +191,9 @@ export const copy = {
     demo: {
       label: 'Demo',
       title: "Ask a dealership that doesn't exist.",
-      lede: 'Five recorded runs of the governed-agents repository, on fictional data and with no live model. Pick a question and watch the path to the answer.',
-      pick: 'Questions',
-      replay: 'Replay',
+      lede: 'Thirteen recorded runs of the governed-agents repository, on fictional data and with no live model. Pick a question and watch the path to the answer.',
+      groups: { parts: 'Parts', service: 'Service', machines: 'Machines', finance: 'Finance', limits: 'Limits' },
+      asRole: 'as {role}',
       noscript: 'This demo needs JavaScript. The code is on GitHub.',
       repo: 'See the code on GitHub',
       steps: {
@@ -211,8 +216,9 @@ export const copy = {
     projects: {
       label: 'Projects',
       title: 'What I have built',
-      lede: 'Company work appears without company data. Where code can be shown, the repository is a rebuild from scratch on fictional data.',
-      open: 'Open case study',
+      lede: 'Company work appears without company data: the screens were recreated with AgroDemo, a fictional brand. Where code can be shown, the repository is a rebuild from scratch.',
+      previous: 'Previous projects',
+      next: 'Next projects',
     },
     method: {
       label: 'Method',

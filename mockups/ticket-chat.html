@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"><title>Agente de TI</title><link rel="stylesheet" href="mock.css">
+<style>
+  .ticket { margin-top: 14px; border-radius: 10px; border: 1px solid #5a5236; background: #26241c; overflow: hidden; }
+  .ticket-head { display: flex; justify-content: space-between; padding: 12px 18px; background: #ffc933; color: #15171a; font-weight: 700; }
+  .ticket dl { display: grid; grid-template-columns: 190px 1fr; gap: 7px 12px; padding: 15px 18px; font-size: 19px; }
+  .ticket dt { color: #b5b5b5; }
+</style>
+</head>
+<body>
+<div class="chat">
+  <div class="chat-rail"><i></i><i class="on"></i><i></i><i></i><i></i></div>
+  <div class="chat-main">
+    <div class="chat-head"><img src="agrodemo-logo.svg" alt=""><b>Agente de TI</b><span>AgroDemo Máquinas · dados fictícios</span></div>
+    <div class="chat-body">
+      <div class="me">Meu acesso ao ERP travou depois que troquei a senha.</div>
+      <div class="bot">
+        <img src="agrodemo-logo.svg" alt="">
+        <div class="bot-card">
+          Não encontrei esse caso nos manuais de atendimento, então abri um chamado no seu nome.
+          <div class="ticket">
+            <div class="ticket-head"><span>Chamado aberto</span><span>261030.1042</span></div>
+            <dl>
+              <dt>Solicitante</dt><dd>Ana Souza</dd>
+              <dt>Departamento</dt><dd>Comercial</dd>
+              <dt>Categoria</dt><dd>Acesso ao ERP</dd>
+              <dt>Situação</dt><dd>Aguardando atendimento</dd>
+            </dl>
+          </div>
+          <div class="offer">Você recebe as atualizações por aqui.</div>
+        </div>
+      </div>
+    </div>
+    <div class="chat-input">Descreva o que aconteceu</div>
+  </div>
+</div>
+</body>
+</html>

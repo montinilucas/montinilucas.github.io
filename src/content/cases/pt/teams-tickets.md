@@ -1,5 +1,5 @@
 ---
-order: 6
+order: 7
 title: Chamados de TI abertos pelo Teams
 summary: Um agente abre o chamado na plataforma de workflow por API, em nome de quem pediu, contornando uma limitação do autor.
 status: Em teste
@@ -9,6 +9,9 @@ stack:
   - Power Automate
   - API REST
   - SharePoint
+image: /images/projects/ticket-chat.webp
+imageAlt: Conversa em que o agente abre um chamado no nome de quem pediu
+caption: Tela recriada com dados fictícios
 links: []
 ---
 

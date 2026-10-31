@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"><title>Carteira de pedidos</title><link rel="stylesheet" href="mock.css">
+<style>
+  body { display: grid; grid-template-columns: 220px 1fr; background: #111316; color: #f0ece3; }
+  aside { padding: 24px 16px; background: #191b1f; }
+  .marca { display: flex; align-items: center; gap: 10px; font-size: 19px; font-weight: 700; }
+  .marca img { width: 38px; height: 38px; }
+  nav { margin-top: 26px; display: grid; gap: 4px; font-size: 18px; color: #bdb9b0; }
+  nav span { padding: 10px 12px; border-radius: 6px; }
+  nav .on { background: #2a2c30; color: #ffc933; font-weight: 600; }
+  main { padding: 30px 32px; }
+  header { display: flex; align-items: center; justify-content: space-between; }
+  h1 { font-size: 31px; font-weight: 700; }
+  .cofre { padding: 8px 14px; border: 1px solid #ffc933; border-radius: 99px; color: #ffc933; font-size: 16px; font-weight: 600; }
+  .kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 18px; }
+  .kpis div { padding: 20px 20px; border-radius: 8px; background: #1d1f23; }
+  .kpis .a { background: #ffc933; color: #15171a; } .kpis .b { background: #ff7a1a; color: #15171a; }
+  .kpis small { display: block; font-size: 16px; opacity: .85; }
+  .kpis b { font-size: 46px; line-height: 1.15; }
+  .linha { display: grid; grid-template-columns: 1.25fr 1fr; gap: 14px; margin-top: 14px; }
+  .bloco { padding: 16px 18px; border-radius: 8px; background: #1d1f23; }
+  .bloco h2 { font-size: 19px; font-weight: 600; color: #d3cfc6; }
+  .bar { display: grid; grid-template-columns: 136px 1fr 44px; align-items: center; gap: 10px; margin-top: 14px; font-size: 18px; }
+  .bar i { display: block; height: 24px; border-radius: 3px; background: #ffc933; }
+  .bar:nth-of-type(even) i { background: #ff7a1a; }
+  .donut { display: flex; align-items: center; gap: 20px; margin-top: 10px; font-size: 17px; }
+  .donut li { display: flex; align-items: center; gap: 9px; margin-top: 7px; }
+  .donut em { width: 14px; height: 14px; border-radius: 3px; }
+  .tabela { margin-top: 12px; font-size: 18px; }
+  .tabela th { padding: 6px 12px 6px 0; color: #a9a7a1; font-weight: 500; text-align: left; border-bottom: 1px solid #36393d; }
+  .tabela td { padding: 11px 12px 11px 0; border-bottom: 1px solid #2c2f33; }
+</style>
+</head>
+<body>
+  <aside>
+    <div class="marca"><img src="agrodemo-logo.svg" alt="">AgroDemo</div>
+    <nav><span class="on">Visão gerencial</span><span>Fábrica</span><span>Inventário</span><span>Comercial</span><span>Opcionais</span></nav>
+  </aside>
+  <main>
+    <header><h1>Carteira de pedidos</h1><span class="cofre">Dados cifrados · AES-256-GCM</span></header>
+    <div class="kpis">
+      <div class="a"><small>Pedidos na carteira</small><b>412</b></div>
+      <div class="b"><small>Em produção</small><b>138</b></div>
+      <div><small>Em trânsito</small><b>57</b></div>
+      <div><small>Entregues no mês</small><b>64</b></div>
+    </div>
+    <div class="linha">
+      <div class="bloco">
+        <h2>Pedidos por situação</h2>
+        <div class="bar"><span>Em produção</span><i style="width:100%"></i><span>138</span></div>
+        <div class="bar"><span>Aguardando</span><i style="width:76%"></i><span>105</span></div>
+        <div class="bar"><span>Em trânsito</span><i style="width:41%"></i><span>57</span></div>
+        <div class="bar"><span>Na filial</span><i style="width:35%"></i><span>48</span></div>
+      </div>
+      <div class="bloco">
+        <h2>Pedidos por família</h2>
+        <div class="donut">
+          <svg width="136" height="136" viewBox="0 0 42 42"><g fill="none" stroke-width="7"><circle cx="21" cy="21" r="15.9" stroke="#ffc933" stroke-dasharray="44 56"/><circle cx="21" cy="21" r="15.9" stroke="#ff7a1a" stroke-dasharray="27 73" stroke-dashoffset="-44"/><circle cx="21" cy="21" r="15.9" stroke="#f3efe6" stroke-dasharray="18 82" stroke-dashoffset="-71"/><circle cx="21" cy="21" r="15.9" stroke="#6b6e73" stroke-dasharray="11 89" stroke-dashoffset="-89"/></g></svg>
+          <ul>
+            <li><em style="background:#ffc933"></em>Tratores 44%</li>
+            <li><em style="background:#ff7a1a"></em>Colheitadeiras 27%</li>
+            <li><em style="background:#f3efe6"></em>Pulverizadores 18%</li>
+            <li><em style="background:#6b6e73"></em>Plantadeiras 11%</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="bloco" style="margin-top:14px">
+      <h2>Próximas entregas</h2>
+      <table class="tabela">
+        <thead><tr><th>Pedido</th><th>Modelo</th><th>Filial</th><th>Semana</th></tr></thead>
+        <tbody>
+          <tr><td>AD-20418</td><td>T-220</td><td>Norte</td><td>46/2026</td></tr>
+          <tr><td>AD-20431</td><td>C-700</td><td>Sul</td><td>47/2026</td></tr>
+          <tr><td>AD-20456</td><td>P-30</td><td>Centro</td><td>47/2026</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+</body>
+</html>

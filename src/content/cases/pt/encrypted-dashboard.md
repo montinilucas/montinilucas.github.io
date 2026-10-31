@@ -1,5 +1,5 @@
 ---
-order: 7
+order: 8
 title: Painel de pedidos com dados criptografados
 summary: Um painel que lê planilhas protegidas no navegador, guarda só dados cifrados na nuvem e roda dentro de um relatório do Power BI.
 status: Em produção
@@ -11,6 +11,9 @@ stack:
   - Firebase
   - Firestore
   - Power BI
+image: /images/projects/orders-dashboard.webp
+imageAlt: Painel de carteira de pedidos, com indicadores, gráficos e o selo de dados cifrados
+caption: Tela recriada com marca e dados fictícios
 links: []
 ---
 

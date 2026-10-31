@@ -4,6 +4,12 @@ import { copy, type Lang } from '../i18n';
 
 const { lang } = Astro.props as { lang: Lang };
 const t = copy[lang].demo;
+const groups = (Object.keys(t.groups) as (keyof typeof t.groups)[]).map((key) => ({
+  label: t.groups[key],
+  items: traces.map((trace, index) => ({ trace, index })).filter(({ trace }) => trace.group === key),
+}));
+const roleTag = (role: string) =>
+  role === 'manager' ? '' : t.asRole.replace('{role}', t.roles[role as keyof typeof t.roles]);
 const payload = JSON.stringify({
   lang,
   traces,
@@ -30,16 +36,19 @@ const payload = JSON.stringify({
 
     <div class="demo-body">
       <div class="demo-questions">
-        <p class="label" id="demo-pick">{t.pick}</p>
-        <div role="group" aria-labelledby="demo-pick">
-          {
-            traces.map((trace, index) => (
-              <button type="button" data-case={index} aria-pressed={index === 0 ? 'true' : 'false'}>
-                {trace.question[lang]}
-              </button>
-            ))
-          }
-        </div>
+        {
+          groups.map((group) => (
+            <div class="demo-group" role="group" aria-label={group.label}>
+              <p class="demo-group-label">{group.label}</p>
+              {group.items.map(({ trace, index }) => (
+                <button type="button" data-case={index} aria-pressed={index === 0 ? 'true' : 'false'}>
+                  {trace.question[lang]}
+                  {roleTag(trace.role) && <small>{roleTag(trace.role)}</small>}
+                </button>
+              ))}
+            </div>
+          ))
+        }
         <a class="demo-repo" href="https://github.com/montinilucas/governed-agents">{t.repo} ↗</a>
       </div>
       <ol class="trace" data-log aria-live="polite"></ol>
